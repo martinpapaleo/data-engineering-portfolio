@@ -25,7 +25,7 @@ Validate
    │
    ▼
 Processed Parquet
-
+'''
 ## Pipeline Stages
 
 ### Ingest
@@ -68,7 +68,7 @@ Stores the validated dataset in Parquet format for downstream analytical use.
 
 ## Project Structure
 
-```text
+'''text
 sales_supermarket_v2/
 ├── data/
 │   ├── raw/
@@ -82,3 +82,4 @@ sales_supermarket_v2/
 │   ├── persist.py
 │   └── pipeline.py
 └── README.md
+'''
