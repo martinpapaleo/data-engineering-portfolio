@@ -15,7 +15,8 @@ def value_pos_in_df(df_, col_name):
 
 def valid_data(data_):
     import pandas as pd
-    # No duplicate Invoice_ID
+
+    # Primary key validation
     if data_['Invoice_ID'].duplicated().sum() != 0:
         raise ValueError("Invoice_ID column has duplicated values")
 
@@ -23,6 +24,7 @@ def valid_data(data_):
     if data_.isnull().sum().sum() != 0:
         raise ValueError("Null values detected")
     
+    # Numeric validation
     # Unit_price > 0 
     if not value_pos_in_df(data_, 'Unit_price'):
         raise ValueError("Unit_price column has values <= 0")
@@ -44,6 +46,7 @@ def valid_data(data_):
     if data_.loc[(data_['Rating'] > 10) | (data_['Rating'] < 0)].count().sum() != 0:
         raise ValueError('Rating column values not between 0 and 10 (included).')
 
+    # Datetime validation
     # Datetime type datetime[ns]
     if not pd.api.types.is_datetime64_any_dtype(data_['Datetime']):
         raise ValueError("Datetime column is not datetime dtype")
