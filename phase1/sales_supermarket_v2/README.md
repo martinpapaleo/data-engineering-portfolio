@@ -25,7 +25,7 @@ Validate
    │
    ▼
 Processed Parquet
-'''
+
 ## Pipeline Stages
 
 ### Ingest
