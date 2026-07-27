@@ -4,40 +4,55 @@ Clean:
 - Create Datetime by combining Date + Time using MM/DD/YYYY + HH:MM
 - Drop raw Date and Time
 - Drop Tax 5% and gross margin percentage
-- Ensure numeric columns are numeric (no silent object leftovers)
 '''
 import pandas as pd
-def clean_raw_data(df_raw, debug):
-    df = df_raw.copy()
-    # Applying 'Unknown' to NaN values in Gender column
-    df.loc[df['Gender'].isnull(), 'Gender'] = 'Unknown'
+from config import RAW_FILE_PATH
 
-    # Counting for validation
+def clean_raw_data(
+    raw_df: pd.DataFrame,
+    debug: bool = False,
+) -> pd.DataFrame:
+    """
+    Clean the raw supermarket sales dataset.
+
+    The function fills missing gender values, combines the source date and
+    time columns into a datetime column, and removes redundant fields.
+
+    Parameters
+    ----------
+    raw_df : pd.DataFrame
+        Raw supermarket sales data.
+    debug : bool, default=False
+        Whether to print information about the cleaned dataset.
+
+    Returns
+    -------
+    pd.DataFrame
+        A cleaned copy of the input dataset.
+    """
+    clean_df = raw_df.copy()
+
+    clean_df["Gender"] = clean_df["Gender"].fillna("Unknown")
+
+    clean_df["Datetime"] = pd.to_datetime(
+        clean_df["Date"] + " " + clean_df["Time"],
+        format="%m/%d/%Y %H:%M",
+    )
+
+    columns_to_drop = [
+        "Date",
+        "Time",
+        "Tax 5%",
+        "gross margin percentage",
+    ]
+
+    clean_df = clean_df.drop(columns=columns_to_drop)
+
     if debug:
-        print(df['Gender'].value_counts())
-        print(df.head())
+        print("\nCleaned data preview:")
+        print(clean_df.head())
 
-    # Parsing Date and Time columns into Datetime column
+        print("\nMissing values:")
+        print(clean_df.isna().sum())
 
-    df['Datetime'] = df['Date'] + ' ' + df['Time']
-    df['Datetime'] = pd.to_datetime(df['Datetime'], format='%m/%d/%Y %H:%M')
-    if debug:
-        print(df['Datetime'])
-
-    # Drop columns Time, Date, Tax 5% and gross margin percentage and verify
-    columns_to_drop = ['Time', 'Date', 'Tax 5%', 'gross margin percentage']
-    df = df.drop(columns= columns_to_drop, axis=1)
-    if debug:
-        print(df.columns)
-
-    # Ensure all numeric columns are indeed numeric
-    if debug:
-        print(df.info())
-
-    # Deliverable outputs
-    df_clean = df
-    if debug:
-        print('DF Clean:')
-        print(df_clean.head())
-        print(df_clean.isnull().sum().sort_values(ascending=False).head(5))
-    return df_clean
+    return clean_df
