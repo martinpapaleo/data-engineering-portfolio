@@ -15,6 +15,3 @@ venv/
 
 # Environment variables
 .env
-
-# Generated data
-data/processed/
