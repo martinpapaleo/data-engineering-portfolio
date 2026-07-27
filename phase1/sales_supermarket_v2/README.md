@@ -8,7 +8,7 @@ The pipeline separates ingestion, cleaning, transformation, validation, and pers
 
 ## Pipeline Architecture
 
-```text
+'''text
 Raw CSV
    │
    ▼
@@ -25,7 +25,7 @@ Validate
    │
    ▼
 Processed Parquet
-
+'''
 ## Pipeline Stages
 
 ### Ingest
