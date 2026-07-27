@@ -1,5 +1,27 @@
-Ingest: Load raw data without modifying it. Establish raw schema + basic profiling.
-Clean: Standardize types, handle nulls/duplicates, normalize categories. Minimal transformations.
-Transform: Create derived columns and business-ready fields (e.g., datetime, weekday, hour).
-Validate: Run assertions (pass/fail). If checks fail → stop.
-Persist: Save processed dataset to data/processed/ in a stable format (prefer Parquet, CSV is fine).
+# Sales Supermarket Data Pipeline
+
+## Overview
+
+This project implements a modular batch data pipeline that transforms raw supermarket sales data into a clean and validated analytical dataset.
+
+The pipeline separates ingestion, cleaning, transformation, validation, and persistence into independent modules to improve readability, maintainability, and reproducibility.
+
+## Pipeline Architecture
+
+```text
+Raw CSV
+   │
+   ▼
+Ingest
+   │
+   ▼
+Clean
+   │
+   ▼
+Transform
+   │
+   ▼
+Validate
+   │
+   ▼
+Processed Parquet
