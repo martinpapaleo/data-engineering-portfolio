@@ -64,5 +64,4 @@ def clean_raw_data(
         "Customer type": "Customer_type",
         "Product line": "Product_line",
         "gross income": "Gross_income"})
-    print(clean_df.columns.tolist())
     return clean_df

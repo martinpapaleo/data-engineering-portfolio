@@ -47,7 +47,7 @@ try:
         df_final = pd.read_parquet(processed_path)
         print("\nProcessed dataset preview:")
         print(df_final.head())
-        print(f"\nPipeline completed successfully.")
+        print("Pipeline completed successfully.")
         print(f"Rows: {len(df_final)}")
         print(f"Columns: {len(df_final.columns)}")
 except Exception as error:
