@@ -59,4 +59,10 @@ def clean_raw_data(
         print("\nMissing values:")
         print(clean_df.isna().sum())
 
+    clean_df = clean_df.rename(
+    columns={
+        "Customer type": "Customer_type",
+        "Product line": "Product_line",
+        "gross income": "Gross_income"})
+    print(clean_df.columns.tolist())
     return clean_df
