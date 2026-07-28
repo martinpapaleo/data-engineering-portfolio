@@ -1,15 +1,34 @@
 from pathlib import Path
-# Get current file directory (data/src/)
+
 BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
 
-# Move up one level to data/
-DATA_DIR = BASE_DIR.parent
+OUTPUT_DIR = PROJECT_ROOT / "data" / "processed"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# Define processed folder
-OUTPUT_DIR = DATA_DIR / "data" / "processed"
-
-# Save file
 
 def save_data(data_, debug=False):
-    data_.to_parquet(OUTPUT_DIR / "sales_clean.parquet", index=False)
+    """
+    Save the validated dataset as a Parquet file.
+
+    Parameters
+    ----------
+    data_ : pd.DataFrame
+        Validated dataset.
+    debug : bool, default=False
+        Whether to print the output location.
+
+    Returns
+    -------
+    bool
+        True if the dataset is saved successfully.
+    """
+
+    output_path = OUTPUT_DIR / "sales_clean.parquet"
+
+    data_.to_parquet(output_path, index=False)
+
+    if debug:
+        print(f"Saved dataset to: {output_path}")
+
     return True

@@ -1,12 +1,12 @@
-'''
+"""
 Clean:
 - Replace missing Gender with "Unknown"
 - Create Datetime by combining Date + Time using MM/DD/YYYY + HH:MM
 - Drop raw Date and Time
 - Drop Tax 5% and gross margin percentage
-'''
+"""
+
 import pandas as pd
-from config import RAW_FILE_PATH
 
 def clean_raw_data(
     raw_df: pd.DataFrame,
@@ -35,8 +35,9 @@ def clean_raw_data(
     clean_df["Gender"] = clean_df["Gender"].fillna("Unknown")
 
     clean_df["Datetime"] = pd.to_datetime(
-        clean_df["Date"] + " " + clean_df["Time"],
+        clean_df["Date"].astype(str) + " " + clean_df["Time"].astype(str),
         format="%m/%d/%Y %H:%M",
+        errors="raise",
     )
 
     columns_to_drop = [
@@ -51,6 +52,9 @@ def clean_raw_data(
     if debug:
         print("\nCleaned data preview:")
         print(clean_df.head())
+
+        print("\nCleaned data types:")
+        print(clean_df.dtypes)
 
         print("\nMissing values:")
         print(clean_df.isna().sum())

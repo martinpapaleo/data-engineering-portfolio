@@ -8,21 +8,38 @@ cogs > 0
 0 <= Rating <= 10
 Datetime is datetime dtype
 '''
+import pandas as pd
+
 def value_pos_in_df(df_, col_name):
     if (df_[col_name] <= 0).sum() != 0:
         return False
     return True
 
 def valid_data(data_):
-    import pandas as pd
 
     # Primary key validation
     if data_['Invoice_ID'].duplicated().sum() != 0:
         raise ValueError("Invoice_ID column has duplicated values")
 
     # No nulls in required columns (your full list)
-    if data_.isnull().sum().sum() != 0:
-        raise ValueError("Null values detected")
+    required_columns = [
+    "Invoice_ID",
+    "Branch",
+    "City",
+    "Product_line",
+    "Unit_price",
+    "Quantity",
+    "Total",
+    "Datetime",
+    "cogs",
+    "Gross_income"]
+    null_counts = data_[required_columns].isnull().sum()
+
+    if null_counts.any():
+        invalid_columns = null_counts[null_counts > 0].to_dict()
+        raise ValueError(
+            f"Null values detected in required columns: {invalid_columns}"
+        )
     
     # Numeric validation
     # Unit_price > 0 
@@ -39,12 +56,12 @@ def valid_data(data_):
     # I do know that Unit_price, Total and cogs could be chacked in one single line, but I'd want to differenciate with a differet print each possible fail
 
     # Quantity >= 1
-    if data_.loc[data_['Quantity'] < 1].count().sum() != 0:
-        raise ValueError('Quantity column has values < 1')
+    if (data_["Quantity"] < 1).any():
+        raise ValueError("Quantity column has values < 1")
     
     # 0 <= Rating <= 10
-    if data_.loc[(data_['Rating'] > 10) | (data_['Rating'] < 0)].count().sum() != 0:
-        raise ValueError('Rating column values not between 0 and 10 (included).')
+    if ((data_["Rating"] < 0) | (data_["Rating"] > 10)).any():
+        raise ValueError("Rating column has values outside the range [0, 10]")
 
     # Datetime validation
     # Datetime type datetime[ns]
@@ -59,5 +76,5 @@ def valid_data(data_):
 
     # Weekday column has str dtype
     if not pd.api.types.is_string_dtype(data_['Weekday']):
-            raise ValueError('Weekday column has values which are not int dtype')
+            raise ValueError("Weekday column is not a string dtype")
     return True

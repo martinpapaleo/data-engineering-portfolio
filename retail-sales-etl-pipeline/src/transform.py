@@ -22,18 +22,23 @@ def transform_data(
 
     transform_df = clean_df.copy()
 
-    datetime_col = transform_df["Datetime"]
+    datetime = transform_df["Datetime"]
 
     # Calendar features
-    transform_df["Year"] = datetime_col.dt.year
-    transform_df["Month"] = datetime_col.dt.month
-    transform_df["Day"] = datetime_col.dt.day
-    transform_df["Weekday"] = datetime_col.dt.day_name()
+    transform_df["Year"] = transform_df["Datetime"].dt.year
+    transform_df["Month"] = transform_df["Datetime"].dt.month
+    transform_df["Day"] = transform_df["Datetime"].dt.day
+    transform_df["Weekday"] = transform_df["Datetime"].dt.day_name()
+    
 
     # Time-of-day features
-    transform_df["Hour"] = datetime_col.dt.hour
+    transform_df["Hour"] = transform_df["Datetime"].dt.hour
 
     if debug:
+        print("\nTransformed data preview:")
         print(transform_df.head())
+
+        print("\nNew features added:")
+        print(["Year", "Month", "Day", "Weekday", "Hour"])
 
     return transform_df
