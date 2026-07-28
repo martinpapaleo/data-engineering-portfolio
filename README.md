@@ -1,8 +1,22 @@
-# Data Science Learning Repository
+# Data Engineering Portfolio
+## A collection of projects documenting my journey toward becoming a Data Engineer.
+This repository documents my journey toward becoming a Data Engineer through hands-on projects completed during my studies at ITBA.
 
-This repository contains my learning progress for becoming a Data Scientist, including:
-- Python Basics
-- Pandas
-- Exploratory Data Analysis (EDA)
-- Mini Projects
+Current projects include:
+
+- Retail Sales ETL Pipeline (Python, Pandas, Parquet)
+- SQL Server Database Management System
+- Data Warehouse & Business Intelligence
+
+Topics covered:
+
+- Python
+- SQL
+- ETL Pipelines
+- Data Validation
+- Relational Data Modeling
+- Data Warehousing
+- Power BI
 - Git & GitHub
+
+More projects will be added as I continue developing practical Data Engineering skills.
