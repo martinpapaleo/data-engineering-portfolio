@@ -6,7 +6,7 @@ Current projects include:
 
 - Retail Sales ETL Pipeline (Python, Pandas, Parquet)
 - SQL Server Database Management System
-- Data Warehouse & Business Intelligence
+- Data Warehouse
 
 Topics covered:
 
