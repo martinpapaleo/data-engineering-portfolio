@@ -1,6 +1,0 @@
-1. Student ID: 1020, Name: Niguiri, Course grade: 7.67
-2. Student ID: 9716, Name:    Luna, Course grade: 6.33
-3. Student ID: 6752, Name:    Kaku, Course grade: 6.33
-4. Student ID: 5063, Name:    Melo, Course grade: 6
-5. Student ID: 9047, Name:    Moni, Course grade: 5.33
-6. Student ID: 9908, Name:    Juan, Course grade: 4.67
